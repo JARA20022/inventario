@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Presentaciones</title></head>
+<body>
+<h1>Presentaciones</h1>
+<a th:href="@{/presentaciones/nuevo}">Nueva presentación</a>
+<table border="1">
+  <tr><th>Nombre</th><th>Estado</th><th></th></tr>
+  <tr th:each="p : ${presentaciones}">
+    <td th:text="${p.nombre}"></td>
+    <td th:text="${p.estado} ? 'Activo' : 'Inactivo'"></td>
+    <td>
+      <a th:href="@{/presentaciones/editar/{id}(id=${p.id})}">Editar</a>
+      <a th:href="@{/presentaciones/estado/{id}(id=${p.id})}">Cambiar estado</a>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

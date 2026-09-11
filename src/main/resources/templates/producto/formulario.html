@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Producto</title></head>
+<body>
+<h1>Producto</h1>
+<form th:action="@{/productos/guardar}" th:object="${producto}" method="post">
+  <input type="hidden" th:field="*{id}"/>
+  Código: <input type="text" th:field="*{codigo}"/><br/>
+  Nombre: <input type="text" th:field="*{nombre}"/><br/>
+  Descripción: <input type="text" th:field="*{descripcion}"/><br/>
+  Categoría:
+  <select th:field="*{categoria}">
+    <option th:each="c : ${categorias}" th:value="${c.id}" th:text="${c.nombre}"></option>
+  </select><br/>
+  Unidad de medida:
+  <select th:field="*{unidadMedida}">
+    <option th:each="u : ${unidades}" th:value="${u.id}" th:text="${u.nombre}"></option>
+  </select><br/>
+  Presentación:
+  <select th:field="*{presentacion}">
+    <option th:each="p : ${presentaciones}" th:value="${p.id}" th:text="${p.nombre}"></option>
+  </select><br/>
+  Stock mínimo: <input type="number" th:field="*{stockMinimo}"/><br/>
+  Stock máximo: <input type="number" th:field="*{stockMaximo}"/><br/>
+  <button type="submit">Guardar</button>
+</form>
+</body>
+</html>

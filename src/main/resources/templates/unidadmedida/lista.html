@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Unidades de medida</title></head>
+<body>
+<h1>Unidades de medida</h1>
+<a th:href="@{/unidades/nuevo}">Nueva unidad</a>
+<table border="1">
+    <tr><th>Nombre</th><th>Estado</th><th></th></tr>
+    <tr th:each="u : ${unidades}">
+        <td th:text="${u.nombre}"></td>
+        <td th:text="${u.estado} ? 'Activo' : 'Inactivo'"></td>
+        <td>
+            <a th:href="@{/unidades/editar/{id}(id=${u.id})}">Editar</a>
+            <a th:href="@{/unidades/estado/{id}(id=${u.id})}">Cambiar estado</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

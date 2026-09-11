@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Presentación</title></head>
+<body>
+<h1>Presentación</h1>
+<form th:action="@{/presentaciones/guardar}" th:object="${presentacion}" method="post">
+    <input type="hidden" th:field="*{id}"/>
+    Nombre: <input type="text" th:field="*{nombre}"/><br/>
+    <button type="submit">Guardar</button>
+</form>
+</body>
+</html>
