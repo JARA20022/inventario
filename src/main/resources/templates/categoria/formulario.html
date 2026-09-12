@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Categoría</title></head>
+<body>
+<h1>Categoría</h1>
+<form th:action="@{/categorias/guardar}" th:object="${categoria}" method="post">
+  <input type="hidden" th:field="*{id}"/>
+  Nombre: <input type="text" th:field="*{nombre}"/><br/>
+  Descripción: <input type="text" th:field="*{descripcion}"/><br/>
+  <button type="submit">Guardar</button>
+</form>
+</body>
+</html>
