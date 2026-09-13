@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entradas de inventario</title>
+    <link rel="stylesheet" th:href="@{/css/entradas.css}">
+</head>
+
+<body>
+<div class="contenedor">
+    <h1>Entradas de inventario</h1>
+    <p class="subtitulo">Registro y control de productos recibidos</p>
+
+    <section class="tarjeta">
+        <h2>Registrar nueva entrada</h2>
+
+        <form th:action="@{/entradas/guardar}"
+              th:object="${entrada}"
+              method="post">
+
+            <div class="campos">
+                <label>
+                    Producto
+                    <select th:field="*{producto.id}" required>
+                        <option value="">Seleccione un producto</option>
+                        <option th:each="producto : ${productos}"
+                                th:value="${producto.id}"
+                                th:text="${producto.nombre}">
+                        </option>
+                    </select>
+                </label>
+
+                <label>
+                    ID del proveedor
+                    <input type="number"
+                           th:field="*{proveedorId}"
+                           min="1"
+                           required>
+                </label>
+
+                <label>
+                    Lote
+                    <input type="text"
+                           th:field="*{lote}"
+                           placeholder="LOT-2026-001"
+                           required>
+                </label>
+
+                <label>
+                    Fecha de vencimiento
+                    <input type="date"
+                           th:field="*{fechaVencimiento}"
+                           required>
+                </label>
+
+                <label>
+                    Cantidad recibida
+                    <input type="number"
+                           th:field="*{cantidadRecibida}"
+                           min="1"
+                           required>
+                </label>
+
+                <label>
+                    Costo unitario
+                    <input type="number"
+                           th:field="*{costoUnitario}"
+                           min="0"
+                           step="0.01"
+                           required>
+                </label>
+            </div>
+
+            <button type="submit">Registrar entrada</button>
+        </form>
+    </section>
+
+    <section class="tarjeta">
+        <h2>Entradas registradas</h2>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Producto</th>
+                <th>Proveedor</th>
+                <th>Lote</th>
+                <th>Vencimiento</th>
+                <th>Cantidad</th>
+                <th>Costo</th>
+                <th>Acción</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="item : ${entradas}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.producto.nombre}"></td>
+                <td th:text="${item.proveedorId}"></td>
+                <td th:text="${item.lote}"></td>
+                <td th:text="${item.fechaVencimiento}"></td>
+                <td th:text="${item.cantidadRecibida}"></td>
+                <td th:text="'S/ ' + ${item.costoUnitario}"></td>
+                <td>
+                    <form th:action="@{/entradas/eliminar/{id}(id=${item.id})}"
+                          method="post">
+                        <button class="eliminar" type="submit">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+
+            <tr th:if="${#lists.isEmpty(entradas)}">
+                <td colspan="8" class="vacio">
+                    No existen entradas registradas
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</div>
+</body>
+</html>
